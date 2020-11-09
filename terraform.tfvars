@@ -1,0 +1,11 @@
+
+iam_profile             = "tfadmin"
+aws_region              = "us-west-2"
+vpc_name                = "sage_payroll"
+vpc_cidr                = "10.0.0.0/16"
+instance_tenancy        = "default"
+instance_type           = "c5.large"
+ingress_cidr_bastion    = "0.0.0.0/0"
+public_subnet_cidr      = "10.0.1.0/24"
+app_subnet_cidr         = "10.0.10.0/24"
+db_subnet_cidr          = "10.0.100.0/24"

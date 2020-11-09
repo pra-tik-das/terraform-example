@@ -1,0 +1,17 @@
+resource "aws_vpc" "sage_payroll" {
+    cidr_block              = "${var.vpc_cidr}"
+    instance_tenancy        = "${var.instance_tenancy}"
+    enable_dns_hostnames    = true
+    enable_dns_support      = true
+    tags = {
+        Name                = "${var.vpc_name}"
+    }
+}
+
+resource "aws_internet_gateway" "sage_payroll_igw" {
+  vpc_id        = "${aws_vpc.sage_payroll.id}"
+    tags        = {
+        Name    = "${var.vpc_name}_igw"
+  }
+    depends_on  = ["aws_vpc.sage_payroll"]
+}

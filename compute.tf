@@ -1,23 +1,21 @@
-/*
 data "aws_ami" "windows" {
   most_recent                   = true 
-  owners                        = ["649711108397"]
+  owners                        = ["801119661308"]
   filter {
        name                     = "name"
-       values                   = ["Microsoft Windows Server 2019 *"]  
+       values                   = ["Windows_Server-2019-English-*"]  
   }     
   filter {
        name                     = "virtualization-type"
        values                   = ["hvm"]  
   }     
 }
-*/
 
 resource "aws_instance" "bastion_host" {
   
   subnet_id                     = "${aws_subnet.sage_payroll_public_subnet.id}"
   vpc_security_group_ids        = ["${aws_security_group.BastionServerSG.id}"]
-  ami                           = "ami-024c2d542738e461b"
+  ami                           = "${data.aws_ami.windows.id}"
   instance_type                 = "${var.instance_type}"
   tenancy                       = "${var.instance_tenancy}"
   associate_public_ip_address   = true
@@ -52,7 +50,7 @@ resource "aws_instance" "app_server" {
   
   subnet_id                     = "${aws_subnet.private[0].id}"
   vpc_security_group_ids        = ["${aws_security_group.AppServerSG.id}"]
-  ami                           = "ami-024c2d542738e461b"
+  ami                           = "${data.aws_ami.windows.id}"
   instance_type                 = "${var.instance_type}"
   tenancy                       = "${var.instance_tenancy}"
   associate_public_ip_address   = false 
